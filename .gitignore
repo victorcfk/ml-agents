@@ -95,3 +95,6 @@ coverage.xml
 /htmlcov/
 
 **/UserSettings/*
+MLProject/Library/*
+MLProject/Temp/FSTimeGet-18887fe0d1a6e6348893e9c53fa17202
+*.log
