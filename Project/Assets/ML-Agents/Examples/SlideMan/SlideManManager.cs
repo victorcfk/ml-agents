@@ -7,7 +7,10 @@ public class SlideManManager : MonoBehaviour
     [SerializeField]
     GameObject foodPrefab;
 
+    [SerializeField]
     GameObject foodInstance;
+
+    [SerializeField]
     GameObject playerInstance;
 
     [SerializeField]

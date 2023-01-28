@@ -6,12 +6,12 @@ public class SlideManInterface : MonoBehaviour
 {
     Rigidbody rb;
 
-    [SerializeField]
-    float moveForce = 5;
-    [SerializeField]
-    float turnForce = 5;
-
+    public float moveForce = 5;
+    public float turnForce = 5;
     public int Score = 0;
+
+    [SerializeField]
+    bool allowcontrol;
 
     // Start is called before the first frame update
     void Awake()
@@ -22,12 +22,19 @@ public class SlideManInterface : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float turnDir = Input.GetAxis("Horizontal");
-        float isAcc = Input.GetAxis("Vertical");
+        if (!allowcontrol) return;
 
-        if(turnDir < 0)
+        float isAcc = Input.GetAxis("Vertical");
+        float turnDir = Input.GetAxis("Horizontal");
+        
+        if (isAcc != 0)
         {
-            TurnACW();
+            Accelerate();
+        }
+
+        if (turnDir < 0)
+        {
+            TurnCCW();
         }
         else
         if (turnDir > 0)
@@ -35,20 +42,16 @@ public class SlideManInterface : MonoBehaviour
             TurnCW();
         }
 
-        if(isAcc != 0)
-        {
-            Accelerate();
-        }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "goal")
-        {
-            Score++;
-            Destroy(other.gameObject);
-        }    
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.tag == "goal")
+    //    {
+    //        Score++;
+    //        Destroy(other.gameObject);
+    //    }    
+    //}
 
     public void Accelerate()
     {
@@ -60,7 +63,7 @@ public class SlideManInterface : MonoBehaviour
         rb.AddTorque(transform.up * turnForce, ForceMode.Force);
     }
 
-    public void TurnACW()
+    public void TurnCCW()
     {
         rb.AddTorque(transform.up* -1 * turnForce, ForceMode.Force);
     }
