@@ -16,6 +16,9 @@ public class SlideManAgent : Agent
     Rigidbody m_AgentRb;
     EnvironmentParameters m_ResetParams;
 
+    [SerializeField]
+    SlideManManager smm;
+    [SerializeField]
     SlideManInterface interf;
 
     Vector3 startLoc;
@@ -24,14 +27,13 @@ public class SlideManAgent : Agent
         m_AgentRb = GetComponent<Rigidbody>();
         interf = GetComponent<SlideManInterface>();
         startLoc = transform.position;
-
-
     }
 
     public override void OnEpisodeBegin()
     {
+        Reset();
         //reset the agent to the center of the area
-        
+
         //set the food to a random location
         //target.transform.position = new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10));
     }
@@ -43,23 +45,34 @@ public class SlideManAgent : Agent
 
         m_AgentRb.velocity = new Vector3(0f, 0f, 0f);
         m_AgentRb.angularVelocity = new Vector3(0f, 0f, 0f);
+        lastknownpos = startLoc;
 
+        interf.hasCollidedWithWall = false;
+
+        //smm.MoveFood();
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
         // Target and Agent positions
-        sensor.AddObservation(target.transform.localPosition);
-        sensor.AddObservation(m_AgentRb.transform.localPosition);
+        sensor.AddObservation(target.transform.localPosition); // 3 values
+        sensor.AddObservation(m_AgentRb.transform.localPosition); // 3 values
 
         // Agent velocity
         sensor.AddObservation(m_AgentRb.velocity.x);
         sensor.AddObservation(m_AgentRb.velocity.z);
 
         //Agent Angular velocity
+        sensor.AddObservation(m_AgentRb.transform.localRotation.y); //this is very important which I missed
         sensor.AddObservation(m_AgentRb.angularVelocity.y);
+
+        //Direction to
+        sensor.AddObservation(
+            Vector3.Angle(m_AgentRb.transform.forward*-1,
+            (target.transform.localPosition - m_AgentRb.transform.localPosition)));
     }
 
+    Vector3 lastknownpos;
 
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
@@ -69,19 +82,20 @@ public class SlideManAgent : Agent
         //var actionX = 2f * Mathf.Clamp(continuousActions[1], -1f, 1f);
 
         // Actions, size = 3
-        if (actionBuffers.ContinuousActions[0] > 0) //accelerating
+        if (actionBuffers.ContinuousActions[0] > 0.1f) //accelerating
         {
             interf.Accelerate();
         }
-        if (actionBuffers.ContinuousActions[1] > 0) //turning CCW
+        if (actionBuffers.ContinuousActions[1] > 0.1f) //turning CCW
         {
             interf.TurnCCW();
         }
-        if (actionBuffers.ContinuousActions[2] > 0) //turning CW
+        if (actionBuffers.ContinuousActions[2] > 0.1f) //turning CW
         {
             interf.TurnCW();
         }
 
+        //=========================================
 
         // Rewards
         float distanceToTarget = Vector3.Distance(m_AgentRb.transform.localPosition, target.transform.localPosition);
@@ -93,9 +107,74 @@ public class SlideManAgent : Agent
             EndEpisode();
         }
 
-        //timing out this
-        SetReward(-0.01f);
+        if (interf.hasCollidedWithWall)
+        {
+            EndEpisode();
+        }
+
+        //if (GetCumulativeReward() < 0.9f)
+        //{
+        //    //Close to target
+        //    if (distanceToTarget < 10f)
+        //    {
+        //        AddReward(0.05f);
+        //    }
+
+        //    if (Vector3.Angle(m_AgentRb.transform.forward * 1, (target.transform.localPosition - m_AgentRb.transform.localPosition)) < 10f)
+        //    {
+        //        AddReward(0.05f);
+        //    }
+        //}
+        //===================================
+        //var distRatio = Mathf.Lerp(2f, 100f, distanceToTarget);
+
+        ////Close to target, is better
+        //AddReward(Mathf.Lerp(0.01f, 0.02f, distRatio));
+
+        ////penalize it for getting stuck
+        //if (Vector3.SqrMagnitude(transform.localPosition - lastknownpos) < 2)
+        //{
+        //    AddReward(-0.03f);
+
+        //    if (GetCumulativeReward() < -10.0f)
+        //    {
+        //        EndEpisode();
+        //    }
+        //}
+        //lastknownpos = transform.localPosition;
+
+        //===================================
+        ////timing out this
+        if (MaxStep > 0)
+        {
+            AddReward(-0.1f / MaxStep);
+        }
+        else
+        {
+            AddReward(-0.01f);
+        }
+
+        //if(StepCount > 30000)
+        //{
+        //    SetReward(-1f);
+        //    EndEpisode();
+        //}
+
+
+        //mlagents-learn config/slideman_config.yaml --run-id=SlideMan --force
     }
+
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "wall")
+        {
+            AddReward(-1);
+            EndEpisode();
+        }
+    }
+
+
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
@@ -103,8 +182,6 @@ public class SlideManAgent : Agent
 
         float isAcc = Input.GetAxis("Vertical");
         float turnDir = Input.GetAxis("Horizontal");
-
-        Debug.Log("isAdd: "+ isAcc);
 
         if (isAcc != 0)
         {

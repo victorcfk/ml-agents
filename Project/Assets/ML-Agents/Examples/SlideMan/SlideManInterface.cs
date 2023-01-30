@@ -17,40 +17,47 @@ public class SlideManInterface : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        hasCollidedWithWall = false;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (!allowcontrol) return;
-
-        float isAcc = Input.GetAxis("Vertical");
-        float turnDir = Input.GetAxis("Horizontal");
-        
-        if (isAcc != 0)
-        {
-            Accelerate();
-        }
-
-        if (turnDir < 0)
-        {
-            TurnCCW();
-        }
-        else
-        if (turnDir > 0)
-        {
-            TurnCW();
-        }
-
-    }
-
-    //private void OnTriggerEnter(Collider other)
+    //void Update()
     //{
-    //    if(other.tag == "goal")
+    //    if (!allowcontrol) return;
+
+    //    float isAcc = Input.GetAxis("Vertical");
+    //    float turnDir = Input.GetAxis("Horizontal");
+        
+    //    if (isAcc != 0)
     //    {
-    //        Score++;
-    //        Destroy(other.gameObject);
-    //    }    
+    //        Accelerate();
+    //    }
+
+    //    if (turnDir < 0)
+    //    {
+    //        TurnCCW();
+    //    }
+    //    else
+    //    if (turnDir > 0)
+    //    {
+    //        TurnCW();
+    //    }
+
+    //}
+    public bool hasCollidedWithWall = false;
+
+    //private void OnCollisionEnter(Collision other)
+    //{
+    //    //if (other.tag == "goal")
+    //    //{
+    //    //    Score++;
+    //    //    Destroy(other.gameObject);
+    //    //}
+
+    //    if (other.gameObject.tag == "wall")
+    //    {
+    //        hasCollidedWithWall = true;
+    //    }
     //}
 
     public void Accelerate()

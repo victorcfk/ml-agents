@@ -135,6 +135,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrainingArea (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 3711460249922532361, guid: e5aec973e957a4141b0e96ead3588e08,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3711460249922532366, guid: e5aec973e957a4141b0e96ead3588e08,
         type: 3}
       propertyPath: m_RootOrder
@@ -203,6 +208,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TrainingArea (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3711460249922532361, guid: e5aec973e957a4141b0e96ead3588e08,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3711460249922532366, guid: e5aec973e957a4141b0e96ead3588e08,
         type: 3}
@@ -273,6 +283,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrainingArea (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 3711460249922532361, guid: e5aec973e957a4141b0e96ead3588e08,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3711460249922532366, guid: e5aec973e957a4141b0e96ead3588e08,
         type: 3}
       propertyPath: m_RootOrder
@@ -341,6 +356,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TrainingArea (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3711460249922532361, guid: e5aec973e957a4141b0e96ead3588e08,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3711460249922532366, guid: e5aec973e957a4141b0e96ead3588e08,
         type: 3}
@@ -411,6 +431,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrainingArea (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3711460249922532361, guid: e5aec973e957a4141b0e96ead3588e08,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3711460249922532366, guid: e5aec973e957a4141b0e96ead3588e08,
         type: 3}
       propertyPath: m_RootOrder
@@ -479,6 +504,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TrainingArea (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3711460249922532361, guid: e5aec973e957a4141b0e96ead3588e08,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3711460249922532366, guid: e5aec973e957a4141b0e96ead3588e08,
         type: 3}
@@ -632,6 +662,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TrainingArea (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3711460249922532361, guid: e5aec973e957a4141b0e96ead3588e08,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3711460249922532366, guid: e5aec973e957a4141b0e96ead3588e08,
         type: 3}
@@ -795,6 +830,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TrainingArea (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3711460249922532361, guid: e5aec973e957a4141b0e96ead3588e08,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3711460249922532366, guid: e5aec973e957a4141b0e96ead3588e08,
         type: 3}

@@ -24,14 +24,30 @@ public class SlideManManager : MonoBehaviour
         
     }
 
-    GameObject SpawnFood()
+    public GameObject SpawnFood()
     {
         return Instantiate(foodPrefab,
             new Vector3(
                 Random.Range(btmLeftBoundary.x, topRightBoundary.x),
                Random.Range(btmLeftBoundary.y, topRightBoundary.y),
-                Random.Range(btmLeftBoundary.z, topRightBoundary.z)),
+                Random.Range(btmLeftBoundary.z, topRightBoundary.z)) + transform.position,
             Quaternion.identity, transform);
+    }
+
+    public void MoveFood()
+    {
+        foodInstance.transform.localPosition = new Vector3(
+                Random.Range(btmLeftBoundary.x, topRightBoundary.x),
+               Random.Range(btmLeftBoundary.y, topRightBoundary.y),
+                Random.Range(btmLeftBoundary.z, topRightBoundary.z));
+    }
+
+    public void MoveAgent()
+    {
+        playerInstance.transform.localPosition = new Vector3(
+                Random.Range(btmLeftBoundary.x, topRightBoundary.x),
+               Random.Range(btmLeftBoundary.y, topRightBoundary.y),
+                Random.Range(btmLeftBoundary.z, topRightBoundary.z));
     }
 
     // Update is called once per frame

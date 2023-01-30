@@ -41,10 +41,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3711460249922532366}
     m_Modifications:
+    - target: {fileID: 6712984596080324290, guid: 639503dbe2b084a40bf5e1bf730003bc,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713002466127001778, guid: 639503dbe2b084a40bf5e1bf730003bc,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713112319212480754, guid: 639503dbe2b084a40bf5e1bf730003bc,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     - target: {fileID: 6713178126238440196, guid: 639503dbe2b084a40bf5e1bf730003bc,
         type: 3}
       propertyPath: m_Name
       value: Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 6714307926902043266, guid: 639503dbe2b084a40bf5e1bf730003bc,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
       objectReference: {fileID: 0}
     - target: {fileID: 6718791046026642300, guid: 639503dbe2b084a40bf5e1bf730003bc,
         type: 3}
@@ -144,21 +164,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -1873513956517449711, guid: 3145346e4067fd94384520a2d215bb20,
-        type: 3}
-      propertyPath: moveForce
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: -1873513956517449711, guid: 3145346e4067fd94384520a2d215bb20,
-        type: 3}
-      propertyPath: turnForce
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: -1873513956517449711, guid: 3145346e4067fd94384520a2d215bb20,
-        type: 3}
-      propertyPath: allowcontrol
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -628274345287846426, guid: 3145346e4067fd94384520a2d215bb20,
         type: 3}
@@ -294,20 +299,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3711460248552291648}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3711460249255676493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5744292235069488669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionPeriod: 10
-  TakeActionsBetweenDecisions: 1
 --- !u!114 &3711460249255676482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,8 +314,10 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 10000
   target: {fileID: 4785170057520893642}
+  smm: {fileID: 3711460249516469403}
+  interf: {fileID: 6232473450565029201}
 --- !u!114 &3711460249255676483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,7 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 8
+    VectorObservationSize: 11
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 3
@@ -347,7 +340,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 70637db693038844a87829dd302832a1, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: SlideMan
@@ -356,6 +349,32 @@ MonoBehaviour:
   m_UseChildActuators: 1
   m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
+--- !u!114 &3711460249255676493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5744292235069488669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1
+--- !u!114 &6232473450565029201 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -1873513956517449711, guid: 3145346e4067fd94384520a2d215bb20,
+    type: 3}
+  m_PrefabInstance: {fileID: 3711460248552291648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5744292235069488669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e4e21e586ac6f41b8505efc0b4ac28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3711460249222431696
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -367,6 +386,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Food
+      objectReference: {fileID: 0}
+    - target: {fileID: 8208258641459711259, guid: 99bf343bd8f8a3d4e82a6777a57d0e6d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8208258641459711270, guid: 99bf343bd8f8a3d4e82a6777a57d0e6d,
         type: 3}

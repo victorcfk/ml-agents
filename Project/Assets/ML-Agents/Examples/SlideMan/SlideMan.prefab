@@ -331,8 +331,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveForce: 5
-  turnForce: 5
+  turnForce: 1
   Score: 0
+  allowcontrol: 0
+  hasCollidedWithWall: 0
 --- !u!1 &8950463879376191091
 GameObject:
   m_ObjectHideFlags: 0
