@@ -21,31 +21,30 @@ public class SlideManInterface : MonoBehaviour
     }
 
     // Update is called once per frame
-    //void Update()
-    //{
-    //    if (!allowcontrol) return;
+    void Update()
+    {
+        if (!allowcontrol) return;
 
-    //    float isAcc = Input.GetAxis("Vertical");
-    //    float turnDir = Input.GetAxis("Horizontal");
-        
-    //    if (isAcc != 0)
-    //    {
-    //        Accelerate();
-    //    }
+        float isAcc = Input.GetAxis("Vertical");
+        float turnDir = Input.GetAxis("Horizontal");
 
-    //    if (turnDir < 0)
-    //    {
-    //        TurnCCW();
-    //    }
-    //    else
-    //    if (turnDir > 0)
-    //    {
-    //        TurnCW();
-    //    }
+        if (isAcc != 0)
+        {
+            Accelerate();
+        }
 
-    //}
+        if (turnDir < 0)
+        {
+            TurnCCW();
+        }
+        else
+        if (turnDir > 0)
+        {
+            TurnCW();
+        }
+    }
+
     public bool hasCollidedWithWall = false;
-
     //private void OnCollisionEnter(Collision other)
     //{
     //    //if (other.tag == "goal")
