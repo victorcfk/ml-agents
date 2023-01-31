@@ -165,20 +165,30 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -1873513956517449711, guid: 3145346e4067fd94384520a2d215bb20,
+        type: 3}
+      propertyPath: moveForce
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -1873513956517449711, guid: 3145346e4067fd94384520a2d215bb20,
+        type: 3}
+      propertyPath: turnForce
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: -628274345287846426, guid: 3145346e4067fd94384520a2d215bb20,
         type: 3}
       propertyPath: m_Drag
-      value: 0.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -628274345287846426, guid: 3145346e4067fd94384520a2d215bb20,
         type: 3}
       propertyPath: m_Mass
-      value: 0.1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -628274345287846426, guid: 3145346e4067fd94384520a2d215bb20,
         type: 3}
       propertyPath: m_AngularDrag
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -628274345287846426, guid: 3145346e4067fd94384520a2d215bb20,
         type: 3}
@@ -318,6 +328,7 @@ MonoBehaviour:
   target: {fileID: 4785170057520893642}
   smm: {fileID: 3711460249516469403}
   interf: {fileID: 6232473450565029201}
+  targetScoreDistance: 3
 --- !u!114 &3711460249255676483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,11 +345,11 @@ MonoBehaviour:
     VectorObservationSize: 11
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 3
-      BranchSizes: 
-    VectorActionSize: 03000000
+      m_NumContinuousActions: 0
+      BranchSizes: 0200000003000000
+    VectorActionSize: 0200000003000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 1
+    VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: 70637db693038844a87829dd302832a1, type: 3}
   m_InferenceDevice: 0

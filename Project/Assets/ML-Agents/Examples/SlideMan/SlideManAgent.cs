@@ -20,6 +20,8 @@ public class SlideManAgent : Agent
     SlideManManager smm;
     [SerializeField]
     SlideManInterface interf;
+    [SerializeField]
+    float targetScoreDistance = 3;
 
     Vector3 startLoc;
     public void Start()
@@ -82,15 +84,18 @@ public class SlideManAgent : Agent
         //var actionX = 2f * Mathf.Clamp(continuousActions[1], -1f, 1f);
 
         // Actions, size = 3
-        if (actionBuffers.ContinuousActions[0] > 0.1f) //accelerating
+        if (actionBuffers.DiscreteActions[0] == 1) //accelerating
         {
             interf.Accelerate();
         }
-        if (actionBuffers.ContinuousActions[1] > 0.1f) //turning CCW
+
+        //0 means do not turn
+        if (actionBuffers.DiscreteActions[1] == 1) //turning CCW
         {
             interf.TurnCCW();
         }
-        if (actionBuffers.ContinuousActions[2] > 0.1f) //turning CW
+        else
+        if (actionBuffers.DiscreteActions[1] == 2) //turning CW
         {
             interf.TurnCW();
         }
@@ -101,7 +106,7 @@ public class SlideManAgent : Agent
         float distanceToTarget = Vector3.Distance(m_AgentRb.transform.localPosition, target.transform.localPosition);
 
         //Reached target
-        if (distanceToTarget < 2f)
+        if (distanceToTarget < targetScoreDistance)
         {
             SetReward(1.0f);
             EndEpisode();
@@ -175,27 +180,33 @@ public class SlideManAgent : Agent
     }
 
 
-
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        var continuousActionsOut = actionsOut.ContinuousActions;
-
-        float isAcc = Input.GetAxis("Vertical");
+        bool isAcc = Input.GetAxis("Vertical") > 0;
         float turnDir = Input.GetAxis("Horizontal");
 
-        if (isAcc != 0)
+        var discreteActionsOut = actionsOut.DiscreteActions;
+        if (isAcc)
         {
-            continuousActionsOut[0] = 1;
+            discreteActionsOut[0] = 1;
+        }
+        else
+        {
+            discreteActionsOut[0] = 0;
         }
 
         if (turnDir < 0)
         {
-            continuousActionsOut[1] = 1; //TurnCCW();
+            discreteActionsOut[1] = 1; //TurnCCW();
         }
         else
         if (turnDir > 0)
         {
-            continuousActionsOut[2] = 1;
+            discreteActionsOut[1] = 2;
+        }
+        else
+        {
+            discreteActionsOut[1] = 0;
         }
 
     }
