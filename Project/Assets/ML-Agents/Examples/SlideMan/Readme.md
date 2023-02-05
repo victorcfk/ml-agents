@@ -6,8 +6,7 @@
 +You must reload the nn model by deleting and adding it back again
 + Adding more steps to the model by editing the yaml file allowed me to do "curriculum training"
 + using discrete model with smaller move parameters works decently, but there is a major big with the avatar not seeming to be able to turn both direction.
-+TODO to fix this
 
 
-//turning left seems to be bugged
-
+5th feb, 
+- Learned that the agent could be trained more effectively by setting the objects in a circle and subtly moving them around the space, so they know how to deal with a piece of food that is at a different orientation to them

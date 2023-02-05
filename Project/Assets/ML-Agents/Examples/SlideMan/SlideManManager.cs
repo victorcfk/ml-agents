@@ -18,29 +18,42 @@ public class SlideManManager : MonoBehaviour
     [SerializeField]
     Vector3 btmLeftBoundary;
 
-    // Start is called before the first frame update
+    Vector3 lastknownfoodpos;
+    int lasthitElement = 0;
+    public Transform[] targetPoints;
+    //Start is called before the first frame update
     void Start()
     {
-        
+        lastknownfoodpos = foodInstance.transform.localPosition;
     }
 
-    public GameObject SpawnFood()
+    //try to move it close to the original location
+    //public Vector3 MoveFoodWithinBoundingBox()
+    //{
+    //    return foodInstance.transform.localPosition = new Vector3(
+    //            Random.Range(btmLeftBoundary.x, topRightBoundary.x),
+    //           Random.Range(btmLeftBoundary.y, topRightBoundary.y),
+    //            Random.Range(btmLeftBoundary.z, topRightBoundary.z));
+    //}
+
+
+    public Vector3 MoveFood(float distFrom = 10)
     {
-        return Instantiate(foodPrefab,
-            new Vector3(
-                Random.Range(btmLeftBoundary.x, topRightBoundary.x),
-               Random.Range(btmLeftBoundary.y, topRightBoundary.y),
-                Random.Range(btmLeftBoundary.z, topRightBoundary.z)) + transform.position,
-            Quaternion.identity, transform);
+
+        if (lasthitElement >= targetPoints.Length - 1)
+        {
+            lasthitElement = 0;
+        }
+        else
+        {
+            lasthitElement++;
+        }
+        Vector3 foodpos = targetPoints[lasthitElement].localPosition;
+
+        foodInstance.transform.localPosition = foodpos;
+        return foodpos;
     }
 
-    public void MoveFood()
-    {
-        foodInstance.transform.localPosition = new Vector3(
-                Random.Range(btmLeftBoundary.x, topRightBoundary.x),
-               Random.Range(btmLeftBoundary.y, topRightBoundary.y),
-                Random.Range(btmLeftBoundary.z, topRightBoundary.z));
-    }
 
     public void MoveAgent()
     {
@@ -50,12 +63,4 @@ public class SlideManManager : MonoBehaviour
                 Random.Range(btmLeftBoundary.z, topRightBoundary.z));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (foodInstance == null)
-        {
-            foodInstance = SpawnFood();
-        }   
-    }
 }
