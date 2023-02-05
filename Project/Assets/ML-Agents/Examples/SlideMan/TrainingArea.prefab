@@ -329,7 +329,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 500000
+  MaxStep: 1000000
   target: {fileID: 4785170057520893642}
   smm: {fileID: 3711460249516469403}
   interf: {fileID: 6232473450565029201}
@@ -350,11 +350,11 @@ MonoBehaviour:
     VectorObservationSize: 12
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 0
-      BranchSizes: 0200000003000000
-    VectorActionSize: 0200000003000000
+      m_NumContinuousActions: 2
+      BranchSizes: 
+    VectorActionSize: 02000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: 70637db693038844a87829dd302832a1, type: 3}
   m_InferenceDevice: 0

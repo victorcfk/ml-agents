@@ -91,26 +91,16 @@ public class SlideManAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
-        //var continuousActions = actionBuffers.ContinuousActions;
+        var actionAcc = Mathf.Clamp(actionBuffers.ContinuousActions[0], 0, 1f);
+        var actionTurn = Mathf.Clamp(actionBuffers.ContinuousActions[1], -1f, 1f);
 
-        //var actionZ = 2f * Mathf.Clamp(continuousActions[0], -1f, 1f);
-        //var actionX = 2f * Mathf.Clamp(continuousActions[1], -1f, 1f);
-
-        var accelerateAction = actionBuffers.DiscreteActions[0];
-        if (accelerateAction  == (int)AccelerateAction.ACCELERATE) //accelerating
-        {
-            interf.Accelerate();
-        }
-
-        var turnAction = actionBuffers.DiscreteActions[1];
-        if (turnAction == (int)TurnAction.TURN_CCW) //turning CCW
-        {
-            interf.TurnCCW();
-        }
+        interf.Accelerate(actionAcc);
+        if (actionTurn < 0) {
+            interf.TurnCCW(actionTurn*-1);
+                }
         else
-        if (turnAction == (int)TurnAction.TURN_CW) //turning CW
         {
-            interf.TurnCW();
+            interf.TurnCW(actionTurn);
         }
 
         //=========================================
@@ -187,54 +177,42 @@ public class SlideManAgent : Agent
     }
 
 
+    //public override void Heuristic(in ActionBuffers actionsOut)
+    //{
+    //    var discreteActionsOut = actionsOut.DiscreteActions;
+    //    if (Input.GetAxis("Vertical") > 0)
+    //    {
+    //        discreteActionsOut[0] = (int)AccelerateAction.ACCELERATE;  // Accelerate
+    //    }
+    //    else
+    //    {
+    //        discreteActionsOut[0] = (int)AccelerateAction.DO_NOTHING;  // No action
+    //    }
+
+    //    float turnDir = Input.GetAxis("Horizontal");
+    //    if (turnDir < 0)
+    //    {
+    //        discreteActionsOut[1] = (int)TurnAction.TURN_CCW; //TurnCCW();
+    //    }
+    //    else
+    //    if (turnDir > 0)
+    //    {
+    //        discreteActionsOut[1] = (int)TurnAction.TURN_CW;  //TurnCW();
+    //    }
+    //    else
+    //    {
+    //        discreteActionsOut[1] = (int)TurnAction.DO_NOTHING;  //do nothing
+    //    }
+
+    //}
+
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        var discreteActionsOut = actionsOut.DiscreteActions;
-        if (Input.GetAxis("Vertical") > 0)
-        {
-            discreteActionsOut[0] = (int)AccelerateAction.ACCELERATE;  // Accelerate
-        }
-        else
-        {
-            discreteActionsOut[0] = (int)AccelerateAction.DO_NOTHING;  // No action
-        }
+        var continuousActionsOut = actionsOut.ContinuousActions;
 
-        float turnDir = Input.GetAxis("Horizontal");
-        if (turnDir < 0)
-        {
-            discreteActionsOut[1] = (int)TurnAction.TURN_CCW; //TurnCCW();
-        }
-        else
-        if (turnDir > 0)
-        {
-            discreteActionsOut[1] = (int)TurnAction.TURN_CW;  //TurnCW();
-        }
-        else
-        {
-            discreteActionsOut[1] = (int)TurnAction.DO_NOTHING;  //do nothing
-        }
+        continuousActionsOut[0] = Input.GetAxis("Vertical");
+        continuousActionsOut[1] = Input.GetAxis("Horizontal");
 
     }
-
-    //[Observable(numStackedObservations: 9)]
-    //Vector2 Rotation
-    //{
-    //    get
-    //    {
-    //        return new Vector2(gameObject.transform.rotation.z, gameObject.transform.rotation.x);
-    //    }
-    //}
-
-    //[Observable(numStackedObservations: 9)]
-    //Vector3 PositionDelta
-    //{
-    //    get
-    //    {
-    //        return target.transform.position - gameObject.transform.position;
-    //    }
-    //}
-
-
-
 
 }

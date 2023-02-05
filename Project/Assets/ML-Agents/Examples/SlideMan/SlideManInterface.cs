@@ -27,18 +27,18 @@ public class SlideManInterface : MonoBehaviour
 
         if (Input.GetAxis("Vertical") > 0)
         {
-            Accelerate();
+            Accelerate(Input.GetAxis("Vertical"));
         }
 
         float turnDir = Input.GetAxis("Horizontal");
         if (turnDir < 0)
         {
-            TurnCCW();
+            TurnCCW(turnDir);
         }
         else
         if (turnDir > 0)
         {
-            TurnCW();
+            TurnCW(turnDir);
         }
     }
 
@@ -57,18 +57,20 @@ public class SlideManInterface : MonoBehaviour
     //    }
     //}
 
-    public void Accelerate()
+    public void Accelerate(float val)
     {
-        rb.AddForce(transform.forward * moveForce, ForceMode.Force);
+        rb.AddForce(transform.forward * moveForce * val, ForceMode.Force);
     }
 
-    public void TurnCW()
+    public void TurnCCW(float val)
     {
-        rb.AddTorque(transform.up * turnForce, ForceMode.Force);
+        rb.AddTorque(transform.up * -1 * turnForce * val, ForceMode.Force);
     }
 
-    public void TurnCCW()
+    public void TurnCW(float val)
     {
-        rb.AddTorque(transform.up* -1 * turnForce, ForceMode.Force);
+        rb.AddTorque(transform.up * turnForce * val, ForceMode.Force);
     }
+
+    
 }
