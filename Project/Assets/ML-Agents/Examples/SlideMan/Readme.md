@@ -5,10 +5,9 @@
 + for small values to discrete actions, when I set the threshold for on trigger discrete action to a low number, like 0.2 from 0, it seemed to work better. Using any value above 0 meant the AI would always spin out of control, while 0.5 meant the AI started by staying still.
 +You must reload the nn model by deleting and adding it back again
 + Adding more steps to the model by editing the yaml file allowed me to do "curriculum training"
++ using discrete model with smaller move parameters works decently, but there is a major big with the avatar not seeming to be able to turn both direction.
++TODO to fix this
 
-can change reticle cloluy
-can see what other players are equipping at start of match
-can see if players are behind you
-comm wheel commands last a short period of time
-equipment and feat sets
-ability for name change
+
+//turning left seems to be bugged
+

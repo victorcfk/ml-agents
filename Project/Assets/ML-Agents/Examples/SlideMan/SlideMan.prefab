@@ -330,8 +330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e4e21e586ac6f41b8505efc0b4ac28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveForce: 5
-  turnForce: 1
+  moveForce: 50
+  turnForce: 40
   Score: 0
   allowcontrol: 0
   hasCollidedWithWall: 0

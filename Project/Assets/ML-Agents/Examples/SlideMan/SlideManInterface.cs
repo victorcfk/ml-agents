@@ -25,14 +25,12 @@ public class SlideManInterface : MonoBehaviour
     {
         if (!allowcontrol) return;
 
-        float isAcc = Input.GetAxis("Vertical");
-        float turnDir = Input.GetAxis("Horizontal");
-
-        if (isAcc != 0)
+        if (Input.GetAxis("Vertical") > 0)
         {
             Accelerate();
         }
 
+        float turnDir = Input.GetAxis("Horizontal");
         if (turnDir < 0)
         {
             TurnCCW();
@@ -61,7 +59,7 @@ public class SlideManInterface : MonoBehaviour
 
     public void Accelerate()
     {
-        rb.AddForce(transform.forward *-1 * moveForce, ForceMode.Force);
+        rb.AddForce(transform.forward * moveForce, ForceMode.Force);
     }
 
     public void TurnCW()

@@ -24,6 +24,20 @@ public class SlideManAgent : Agent
     float targetScoreDistance = 3;
 
     Vector3 startLoc;
+
+    enum AccelerateAction
+    {
+        DO_NOTHING,
+        ACCELERATE,
+    }
+
+    enum TurnAction
+    {
+        DO_NOTHING,
+        TURN_CCW,
+        TURN_CW,
+    }
+
     public void Start()
     {
         m_AgentRb = GetComponent<Rigidbody>();
@@ -34,10 +48,6 @@ public class SlideManAgent : Agent
     public override void OnEpisodeBegin()
     {
         Reset();
-        //reset the agent to the center of the area
-
-        //set the food to a random location
-        //target.transform.position = new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10));
     }
 
     private void Reset()
@@ -70,8 +80,11 @@ public class SlideManAgent : Agent
 
         //Direction to
         sensor.AddObservation(
-            Vector3.Angle(m_AgentRb.transform.forward*-1,
+            Vector3.Angle(m_AgentRb.transform.forward,
             (target.transform.localPosition - m_AgentRb.transform.localPosition)));
+
+        float distanceToTarget = Vector3.Distance(m_AgentRb.transform.localPosition, target.transform.localPosition);
+        sensor.AddObservation(distanceToTarget);
     }
 
     Vector3 lastknownpos;
@@ -83,19 +96,19 @@ public class SlideManAgent : Agent
         //var actionZ = 2f * Mathf.Clamp(continuousActions[0], -1f, 1f);
         //var actionX = 2f * Mathf.Clamp(continuousActions[1], -1f, 1f);
 
-        // Actions, size = 3
-        if (actionBuffers.DiscreteActions[0] == 1) //accelerating
+        var accelerateAction = actionBuffers.DiscreteActions[0];
+        if (accelerateAction  == (int)AccelerateAction.ACCELERATE) //accelerating
         {
             interf.Accelerate();
         }
 
-        //0 means do not turn
-        if (actionBuffers.DiscreteActions[1] == 1) //turning CCW
+        var turnAction = actionBuffers.DiscreteActions[1];
+        if (turnAction == (int)TurnAction.TURN_CCW) //turning CCW
         {
             interf.TurnCCW();
         }
         else
-        if (actionBuffers.DiscreteActions[1] == 2) //turning CW
+        if (turnAction == (int)TurnAction.TURN_CW) //turning CW
         {
             interf.TurnCW();
         }
@@ -150,23 +163,17 @@ public class SlideManAgent : Agent
 
         //===================================
         ////timing out this
-        if (MaxStep > 0)
-        {
-            AddReward(-0.1f / MaxStep);
-        }
-        else
-        {
-            AddReward(-0.01f);
-        }
-
-        //if(StepCount > 30000)
+        //if (MaxStep > 0)
         //{
-        //    SetReward(-1f);
-        //    EndEpisode();
+        //    AddReward(-0.1f / MaxStep);
         //}
-
-
-        //mlagents-learn config/slideman_config.yaml --run-id=SlideMan --force
+        //else
+        //{
+        //    AddReward(-0.01f);
+        //}
+        AddReward(-0.0005f);
+        
+        //mlagents-learn config/slideman_config.yaml --run-id=SlideManNew --force
     }
 
 
@@ -182,31 +189,29 @@ public class SlideManAgent : Agent
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        bool isAcc = Input.GetAxis("Vertical") > 0;
-        float turnDir = Input.GetAxis("Horizontal");
-
         var discreteActionsOut = actionsOut.DiscreteActions;
-        if (isAcc)
+        if (Input.GetAxis("Vertical") > 0)
         {
-            discreteActionsOut[0] = 1;
+            discreteActionsOut[0] = (int)AccelerateAction.ACCELERATE;  // Accelerate
         }
         else
         {
-            discreteActionsOut[0] = 0;
+            discreteActionsOut[0] = (int)AccelerateAction.DO_NOTHING;  // No action
         }
 
+        float turnDir = Input.GetAxis("Horizontal");
         if (turnDir < 0)
         {
-            discreteActionsOut[1] = 1; //TurnCCW();
+            discreteActionsOut[1] = (int)TurnAction.TURN_CCW; //TurnCCW();
         }
         else
         if (turnDir > 0)
         {
-            discreteActionsOut[1] = 2;
+            discreteActionsOut[1] = (int)TurnAction.TURN_CW;  //TurnCW();
         }
         else
         {
-            discreteActionsOut[1] = 0;
+            discreteActionsOut[1] = (int)TurnAction.DO_NOTHING;  //do nothing
         }
 
     }
