@@ -28,7 +28,7 @@ public class SlideManManager : MonoBehaviour
     }
 
     //try to move it close to the original location
-    //public Vector3 MoveFoodWithinBoundingBox()
+    //public Vector3 MoveFood()
     //{
     //    return foodInstance.transform.localPosition = new Vector3(
     //            Random.Range(btmLeftBoundary.x, topRightBoundary.x),
@@ -37,18 +37,24 @@ public class SlideManManager : MonoBehaviour
     //}
 
 
-    public Vector3 MoveFood(float distFrom = 10)
+    public Vector3 MoveFood(float distFrom = 10, bool nextFood = false)
     {
-
-        if (lasthitElement >= targetPoints.Length - 1)
+        if (nextFood)
         {
-            lasthitElement = 0;
-        }
-        else
-        {
-            lasthitElement++;
+            if (lasthitElement < targetPoints.Length-1)
+            {
+                lasthitElement++;
+            }
+            else
+            {
+                lasthitElement = 0;
+            }
         }
         Vector3 foodpos = targetPoints[lasthitElement].localPosition;
+            //+ new Vector3(
+            //    Random.Range(-distFrom, distFrom),
+            //    0,
+            //    Random.Range(-distFrom, distFrom));
 
         foodInstance.transform.localPosition = foodpos;
         return foodpos;

@@ -9,4 +9,4 @@
 
 
 5th feb, 
-- Learned that the agent could be trained more effectively by setting the objects in a circle and subtly moving them around the space, so they know how to deal with a piece of food that is at a different orientation to them
+- Learned that the agent could be trained more effectively by setting the objects in a circle and subtly moving them around the space, so they know how to deal with a piece of food that is at a different orientation to them. While it is important to have randomness in the training data in each round, they should not be too different, like my original fully random start location for all of the food. Having this training in a food circle adds an important step to searching for food in a full 360 deg orientation

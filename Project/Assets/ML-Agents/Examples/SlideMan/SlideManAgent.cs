@@ -47,10 +47,11 @@ public class SlideManAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        Reset();
+        Reset(wasLastEpisodeSuccessful);
+        wasLastEpisodeSuccessful = false;
     }
 
-    private void Reset()
+    private void Reset(bool success = false)
     {
         m_AgentRb.transform.position = startLoc;
         m_AgentRb.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
@@ -61,7 +62,7 @@ public class SlideManAgent : Agent
 
         interf.hasCollidedWithWall = false;
 
-        smm.MoveFood();
+        smm.MoveFood(5, success);
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -88,16 +89,17 @@ public class SlideManAgent : Agent
     }
 
     Vector3 lastknownpos;
-
+    bool wasLastEpisodeSuccessful = false;
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
         var actionAcc = Mathf.Clamp(actionBuffers.ContinuousActions[0], 0, 1f);
         var actionTurn = Mathf.Clamp(actionBuffers.ContinuousActions[1], -1f, 1f);
 
         interf.Accelerate(actionAcc);
-        if (actionTurn < 0) {
+        if (actionTurn < 0)
+        {
             interf.TurnCCW(actionTurn*-1);
-                }
+        }
         else
         {
             interf.TurnCW(actionTurn);
@@ -112,11 +114,13 @@ public class SlideManAgent : Agent
         if (distanceToTarget < targetScoreDistance)
         {
             SetReward(1.0f);
+            wasLastEpisodeSuccessful = true;
             EndEpisode();
         }
 
         if (interf.hasCollidedWithWall)
         {
+            wasLastEpisodeSuccessful = false;
             EndEpisode();
         }
 
@@ -161,7 +165,7 @@ public class SlideManAgent : Agent
         //{
         //    AddReward(-0.01f);
         //}
-        AddReward(-0.0005f);
+        AddReward(-0.001f);
         
         //mlagents-learn config/slideman_config.yaml --run-id=SlideManNew --force
     }
