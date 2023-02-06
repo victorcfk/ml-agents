@@ -37,7 +37,7 @@ public class SlideManManager : MonoBehaviour
     //}
 
 
-    public Vector3 MoveFood(float distFrom = 10, bool nextFood = false)
+    public Vector3 MoveFood(float distFrom = 5, bool nextFood = false)
     {
         if (nextFood)
         {
@@ -50,11 +50,11 @@ public class SlideManManager : MonoBehaviour
                 lasthitElement = 0;
             }
         }
-        Vector3 foodpos = targetPoints[lasthitElement].localPosition;
-            //+ new Vector3(
-            //    Random.Range(-distFrom, distFrom),
-            //    0,
-            //    Random.Range(-distFrom, distFrom));
+        Vector3 foodpos = targetPoints[lasthitElement].localPosition
+        +new Vector3(
+            Random.Range(-distFrom, distFrom),
+            0,
+            Random.Range(-distFrom, distFrom));
 
         foodInstance.transform.localPosition = foodpos;
         return foodpos;
