@@ -19,7 +19,7 @@ public class SlideManManager : MonoBehaviour
     Vector3 btmLeftBoundary;
 
     Vector3 lastknownfoodpos;
-    int lasthitElement = 0;
+    //int lasthitElement = 0;
     public Transform[] targetPoints;
     //Start is called before the first frame update
     void Start()
@@ -28,37 +28,37 @@ public class SlideManManager : MonoBehaviour
     }
 
     //try to move it close to the original location
-    //public Vector3 MoveFood()
-    //{
-    //    return foodInstance.transform.localPosition = new Vector3(
-    //            Random.Range(btmLeftBoundary.x, topRightBoundary.x),
-    //           Random.Range(btmLeftBoundary.y, topRightBoundary.y),
-    //            Random.Range(btmLeftBoundary.z, topRightBoundary.z));
-    //}
-
-
-    public Vector3 MoveFood(float distFrom = 5, bool nextFood = false)
+    public Vector3 MoveFood()
     {
-        if (nextFood)
-        {
-            if (lasthitElement < targetPoints.Length-1)
-            {
-                lasthitElement++;
-            }
-            else
-            {
-                lasthitElement = 0;
-            }
-        }
-        Vector3 foodpos = targetPoints[lasthitElement].localPosition
-        +new Vector3(
-            Random.Range(-distFrom, distFrom),
-            0,
-            Random.Range(-distFrom, distFrom));
-
-        foodInstance.transform.localPosition = foodpos;
-        return foodpos;
+        return foodInstance.transform.localPosition = new Vector3(
+                Random.Range(btmLeftBoundary.x, topRightBoundary.x),
+               Random.Range(btmLeftBoundary.y, topRightBoundary.y),
+                Random.Range(btmLeftBoundary.z, topRightBoundary.z));
     }
+
+
+    //public Vector3 MoveFood(float distFrom = 5, bool nextFood = false)
+    //{
+    //    if (nextFood)
+    //    {
+    //        if (lasthitElement < targetPoints.Length-1)
+    //        {
+    //            lasthitElement++;
+    //        }
+    //        else
+    //        {
+    //            lasthitElement = 0;
+    //        }
+    //    }
+    //    Vector3 foodpos = targetPoints[lasthitElement].localPosition
+    //    +new Vector3(
+    //        Random.Range(-distFrom, distFrom),
+    //        0,
+    //        Random.Range(-distFrom, distFrom));
+
+    //    foodInstance.transform.localPosition = foodpos;
+    //    return foodpos;
+    //}
 
 
     public void MoveAgent()

@@ -62,7 +62,7 @@ public class SlideManAgent : Agent
 
         interf.hasCollidedWithWall = false;
 
-        smm.MoveFood(5, success);
+        smm.MoveFood();
     }
 
     public override void CollectObservations(VectorSensor sensor)
